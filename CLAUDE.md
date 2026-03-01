@@ -20,17 +20,17 @@ $WIKI/.obsidian/plugins/heic-preview/       # Runtime install in vault
 └── styles.css
 ```
 
-`$WIKI` resolves to `~/OneDrive/wiki/`.
+`$WIKI` resolves to `~/wiki/`.
 
 ## Development Workflow
 
 1. Edit code in `~/claude/obsidian-heic-preview/`.
 2. Deploy to vault for testing:
    ```bash
-   mkdir -p ~/OneDrive/wiki/.obsidian/plugins/heic-preview/
-   cp ~/claude/obsidian-heic-preview/{main.js,manifest.json,styles.css} ~/OneDrive/wiki/.obsidian/plugins/heic-preview/
+   mkdir -p ~/wiki/.obsidian/plugins/heic-preview/
+   cp ~/claude/obsidian-heic-preview/{main.js,manifest.json,styles.css} ~/wiki/.obsidian/plugins/heic-preview/
    ```
-3. First-time setup: add `"heic-preview"` to `~/OneDrive/wiki/.obsidian/community-plugins.json`.
+3. First-time setup: add `"heic-preview"` to `~/wiki/.obsidian/community-plugins.json`.
 4. In Obsidian: disable then re-enable **HEIC Preview** in `Settings → Community Plugins` (or restart Obsidian) to reload.
 5. Test: embed `![[xxx.heic]]` in a note, and click a `.heic` file directly.
 6. Commit to git in `~/claude/obsidian-heic-preview/`.
@@ -56,9 +56,8 @@ $WIKI/.obsidian/plugins/heic-preview/       # Runtime install in vault
 ```
 HeicPreviewPlugin (Plugin)
 ├── HeicConverter           // sips 调用 + 三级缓存 + 并发控制
-├── processEmbeds()         // 处理 ![[*.heic]] 嵌入（读和编辑视图共用）
-├── MarkdownPostProcessor   // 阅读视图
-├── LivePreview Extension   // 编辑视图 (CodeMirror ViewPlugin)
+├── processEmbeds()         // 处理 ![[*.heic]] 嵌入（Reading + Live Preview）
+├── MarkdownPostProcessor   // 阅读视图 + Live Preview
 └── HeicFileView            // 直接打开 .heic 文件的视图
 ```
 
