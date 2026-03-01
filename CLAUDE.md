@@ -4,26 +4,36 @@
 
 macOS-only Obsidian 插件，通过 `child_process.execFile` 调用原生 `sips` 命令实现 HEIC 图片硬件加速预览。
 
-## Target Vault
-
-插件最终部署到 `~/OneDrive/wiki/.obsidian/plugins/heic-preview/`。
-
-开发完成后需要：
-1. 复制 `manifest.json`、`main.js`、`styles.css` 到目标目录
-2. 在 `~/OneDrive/wiki/.obsidian/community-plugins.json` 数组末尾添加 `"heic-preview"`
-
-## File Structure
+## Directory Layout
 
 ```
-obsidian-heic-preview/
-├── CLAUDE.md          # 本文件
-├── README.md          # 项目说明
-├── manifest.json      # Obsidian 插件清单
-├── main.js            # 插件主逻辑（无构建步骤，直接写 JS）
-└── styles.css         # 插件样式
+~/claude/obsidian-heic-preview/             # Development repo (this directory)
+├── CLAUDE.md
+├── README.md
+├── manifest.json
+├── main.js            # 插件主逻辑（plain JS, no build step）
+└── styles.css
+
+$WIKI/.obsidian/plugins/heic-preview/       # Runtime install in vault
+├── main.js
+├── manifest.json
+└── styles.css
 ```
 
-**无构建步骤** — 直接编写 `main.js`，不使用 TypeScript / esbuild / rollup。Obsidian 插件 API 通过全局 `app` 对象和 `require('obsidian')` 访问。
+`$WIKI` resolves to `~/OneDrive/wiki/`.
+
+## Development Workflow
+
+1. Edit code in `~/claude/obsidian-heic-preview/`.
+2. Deploy to vault for testing:
+   ```bash
+   mkdir -p ~/OneDrive/wiki/.obsidian/plugins/heic-preview/
+   cp ~/claude/obsidian-heic-preview/{main.js,manifest.json,styles.css} ~/OneDrive/wiki/.obsidian/plugins/heic-preview/
+   ```
+3. First-time setup: add `"heic-preview"` to `~/OneDrive/wiki/.obsidian/community-plugins.json`.
+4. In Obsidian: disable then re-enable **HEIC Preview** in `Settings → Community Plugins` (or restart Obsidian) to reload.
+5. Test: embed `![[xxx.heic]]` in a note, and click a `.heic` file directly.
+6. Commit to git in `~/claude/obsidian-heic-preview/`.
 
 ## Implementation Plan
 

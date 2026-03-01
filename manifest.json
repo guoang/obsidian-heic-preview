@@ -1,0 +1,9 @@
+{
+  "id": "heic-preview",
+  "name": "HEIC Preview",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Preview HEIC images natively on macOS using hardware-accelerated sips.",
+  "author": "Lalo",
+  "isDesktopOnly": true
+}
